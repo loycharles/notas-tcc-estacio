@@ -1,0 +1,47 @@
+.main.menu {
+  background-color: #0f172a;
+  color: #fff;
+  line-height: 1;
+  padding: 16px 16px 8px 16px;
+  height: 75px;
+  position: relative;
+
+  .item {
+    color: #fff;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    flex: 0;
+    border-radius: 8px;
+
+    &:not(.action) :global(.MuiSvgIcon-root) {
+      margin-bottom: 4px;
+    }
+
+    :global(.MuiBottomNavigationAction-label) {
+      font-size: 1rem;
+    }
+
+    &.active {
+      color: #fa80f8;
+    }
+  }
+
+  .action {
+    background-image: linear-gradient(to right top, #fa80f8, #ee6ae9, #e253db, #d637cc, #ca07bd);
+    font-weight: 600;
+    flex-direction: row;
+    gap: 4px;
+    margin-left: auto;
+    flex: 1;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background-image: linear-gradient(to right, #fa80f8, #ee6ae9, #e253db, #d637cc, #ca07bd);
+  }
+}

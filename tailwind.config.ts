@@ -50,6 +50,10 @@ const config: Config = {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+        main: '#CC0BBF',
+        complementary: '#FA80F8',
+        oposity: '#0F172A',
+        danger: '#EF4444',
       },
       borderRadius: {
         lg: 'var(--radius)',
