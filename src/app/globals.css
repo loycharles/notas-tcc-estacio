@@ -39,6 +39,10 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --color-main: #cc0bbf;
+    --color-complementary: #fa80f8;
+    --color-oposity: #0f172a;
+    --color-danger: #ef4444;
   }
   .dark {
     --background: 0 0% 3.9%;

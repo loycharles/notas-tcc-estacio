@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 
 import { account } from '@/lib/appwrite'
+import { updateUser } from '@/stores/user.store'
 
 export default function Layout({
   children,
@@ -17,6 +18,8 @@ export default function Layout({
     queryFn: async () => {
       try {
         const user = await account.get()
+
+        updateUser(user)
 
         return user
       } catch (error) {

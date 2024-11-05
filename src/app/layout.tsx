@@ -1,6 +1,9 @@
 'use client'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ThemeProvider } from '@mui/material/styles'
+
+import { theme } from './theme'
 
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -27,7 +30,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <ThemeProvider theme={theme}>
+          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

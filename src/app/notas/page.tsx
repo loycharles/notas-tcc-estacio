@@ -1,12 +1,18 @@
-import { MainLayout, MainMenu } from '@/components'
+'use client'
+
+import { useRouter } from 'next/navigation'
+
+import { MainLayout, MainMenu, UserAvatar } from '@/components'
 
 export default function NotasPage() {
+  const router = useRouter()
+
   return (
     <MainLayout
       title="Notas"
-      footer={<MainMenu />}
+      footer={<MainMenu action={() => router.push('/notas/criar')} />}
       top={<div>Top</div>}
-      headerAside={<div>A</div>}
+      headerAside={<UserAvatar />}
     >
       <div>NotasPage</div>
     </MainLayout>

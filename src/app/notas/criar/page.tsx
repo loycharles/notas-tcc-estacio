@@ -1,3 +1,15 @@
+'use client'
+
+import { MainLayout, UserAvatar, NoteForm, NoteFormMenu } from '@/components'
+
 export default function CriarNotaPage() {
-  return <div>CriarNotaPage</div>
+  return (
+    <MainLayout
+      title="Criar Nota"
+      footer={<NoteFormMenu />}
+      headerAside={<UserAvatar />}
+    >
+      <NoteForm />
+    </MainLayout>
+  )
 }
