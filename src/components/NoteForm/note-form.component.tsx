@@ -10,7 +10,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox'
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
 import BookmarkIcon from '@mui/icons-material/BookmarkBorder'
 
-import { BottomActionDrawer } from '../BottomActionDrawer'
+import { AddTagDrawer } from './components'
 
 import styles from './note-form.styles.module.scss'
 
@@ -27,11 +27,16 @@ export const NoteForm = ({
   title = '',
   content = '',
   tags = [],
-  onTitleChange = () => {},
-  onContentChange = () => {},
-  onTagsChange = () => {},
+  onTitleChange = (title: string) => {},
+  onContentChange = (content: string) => {},
+  onTagsChange = (tags: string[]) => {},
 }: NoteFormProps) => {
+  const [addTagDrawerOpen, setAddTagDrawerOpen] = useState(false)
+
   const visibleTags = tags.length > 2 ? tags.slice(0, 2) : tags
+
+  const openAddTagDrawer = () => setAddTagDrawerOpen(true)
+  const closeAddTagDrawer = () => setAddTagDrawerOpen(false)
 
   return (
     <>
@@ -69,6 +74,7 @@ export const NoteForm = ({
             color="main"
             variant="outlined"
             startIcon={<AddBoxIcon />}
+            onClick={openAddTagDrawer}
           >
             Tag
           </Button>
@@ -82,9 +88,12 @@ export const NoteForm = ({
         </div>
       </div>
 
-      <BottomActionDrawer
-        onClose={() => {}}
-        action={() => {}}
+      <AddTagDrawer
+        open={addTagDrawerOpen}
+        onClose={closeAddTagDrawer}
+        onAddTag={(tag) => {
+          onTagsChange([...tags, tag])
+        }}
       />
     </>
   )

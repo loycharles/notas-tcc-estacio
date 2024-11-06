@@ -29,10 +29,11 @@ interface BottomActionDrawerProps {
   onDelete?: () => void
   color?: 'main' | 'error'
   image?: string
+  className?: string
 }
 
 export const BottomActionDrawer: React.FC<React.PropsWithChildren<BottomActionDrawerProps>> = ({
-  open = true,
+  open = false,
   title = 'Título',
   children,
   loading = false,
@@ -44,6 +45,7 @@ export const BottomActionDrawer: React.FC<React.PropsWithChildren<BottomActionDr
   color = 'main',
   actionIcon = null,
   image,
+  className,
 }) => {
   const [contentPosition, setContentPosition] = useState({ top: 0 })
   const [contentElement, setContentElement] = useState<HTMLDivElement | null>(null)
@@ -63,6 +65,10 @@ export const BottomActionDrawer: React.FC<React.PropsWithChildren<BottomActionDr
     }
 
     updatePosition()
+
+    setTimeout(() => {
+      updatePosition()
+    }, 100)
 
     const resizeObserver = new ResizeObserver(updatePosition)
     if (contentElement) {
@@ -109,7 +115,7 @@ export const BottomActionDrawer: React.FC<React.PropsWithChildren<BottomActionDr
           {title}
         </Typography>
 
-        <div>{children}</div>
+        <div className={className}>{children}</div>
 
         <div className={styles.actions}>
           <IconButton
@@ -144,6 +150,7 @@ export const BottomActionDrawer: React.FC<React.PropsWithChildren<BottomActionDr
               color={color}
               sx={{ marginLeft: 'auto' }}
               startIcon={actionIcon}
+              onClick={action}
             >
               {actionLabel}
             </Button>
