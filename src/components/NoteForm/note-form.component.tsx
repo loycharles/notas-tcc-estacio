@@ -10,7 +10,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox'
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
 import BookmarkIcon from '@mui/icons-material/BookmarkBorder'
 
-import { AddTagDrawer, TagsListDrawer } from './components'
+import { AddTagDrawer, TagsListDrawer, AITagDrawer } from './components'
 
 import styles from './note-form.styles.module.scss'
 
@@ -37,16 +37,21 @@ export const NoteForm = ({
 }: NoteFormProps) => {
   const [addTagDrawerOpen, setAddTagDrawerOpen] = useState(false)
   const [tagsListDrawerOpen, setTagsListDrawerOpen] = useState(false)
+  const [aiTagDrawerOpen, setAiTagDrawerOpen] = useState(false)
 
   const sortedTags = tags.sort()
   const visibleTags =
     sortedTags.length > VISIBLE_TAGS_LIMIT ? sortedTags.slice(0, VISIBLE_TAGS_LIMIT) : sortedTags
+  const disableIa = disabled || !Boolean(title) || !Boolean(content)
 
   const openAddTagDrawer = () => setAddTagDrawerOpen(true)
   const closeAddTagDrawer = () => setAddTagDrawerOpen(false)
 
   const openTagsListDrawer = () => setTagsListDrawerOpen(true)
   const closeTagsListDrawer = () => setTagsListDrawerOpen(false)
+
+  const openAiTagDrawer = () => setAiTagDrawerOpen(true)
+  const closeAiTagDrawer = () => setAiTagDrawerOpen(false)
 
   const deleteTag = (tag: string) => {
     const remainingTags = tags.filter((t) => t !== tag)
@@ -116,7 +121,8 @@ export const NoteForm = ({
             color="main"
             variant="outlined"
             startIcon={<AutoAwesomeIcon />}
-            disabled={disabled}
+            disabled={disableIa}
+            onClick={openAiTagDrawer}
           >
             Gerar tags
           </Button>
@@ -127,6 +133,10 @@ export const NoteForm = ({
         open={addTagDrawerOpen}
         onClose={closeAddTagDrawer}
         onAddTag={(tag) => {
+          if (tags.includes(tag)) {
+            return
+          }
+
           onTagsChange([...tags, tag])
         }}
       />
@@ -136,6 +146,15 @@ export const NoteForm = ({
         tags={sortedTags}
         onClose={closeTagsListDrawer}
         onDeleteTag={deleteTag}
+      />
+
+      <AITagDrawer
+        open={aiTagDrawerOpen}
+        note={{ title, content }}
+        onClose={closeAiTagDrawer}
+        onUse={(aiTags) => {
+          onTagsChange([...tags, ...aiTags.filter((tag) => !tags.includes(tag))])
+        }}
       />
     </>
   )

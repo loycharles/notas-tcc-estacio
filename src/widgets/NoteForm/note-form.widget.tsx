@@ -5,9 +5,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { useQuery } from '@tanstack/react-query'
-
-import Snackbar from '@mui/material/Snackbar'
-import Alert from '@mui/material/Alert'
+import { toast } from 'react-toastify'
 
 import { MainLayout, UserAvatar, NoteForm, NoteFormMenu, BottomActionDrawer } from '@/components'
 import { saveNote, getNote, deleteNote } from '@/stores/notes.store'
@@ -32,10 +30,6 @@ export const NoteFormWidget = ({ title, noteId }: NoteFormWidgetProps) => {
     tags: [],
   })
 
-  const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false)
-  const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
-  const [deleteSnackbarOpen, setDeleteSnackbarOpen] = useState(false)
-
   const [deleteDrawerOpen, setDeleteDrawerOpen] = useState(false)
 
   const { isLoading } = useQuery({
@@ -57,18 +51,13 @@ export const NoteFormWidget = ({ title, noteId }: NoteFormWidgetProps) => {
     },
   })
 
-  const handleCloseErrorSnackbar = () => setErrorSnackbarOpen(false)
-  const handleOpenErrorSnackbar = () => setErrorSnackbarOpen(true)
-
-  const handleCloseSuccessSnackbar = () => setSuccessSnackbarOpen(false)
-  const handleOpenSuccessSnackbar = () => setSuccessSnackbarOpen(true)
-
-  const handleCloseDeleteSnackbar = () => setDeleteSnackbarOpen(false)
-  const handleOpenDeleteSnackbar = () => setDeleteSnackbarOpen(true)
-
   const handleSaveNote = () => {
     if (!note.title.trim() || !note.content.trim()) {
-      handleOpenErrorSnackbar()
+      toast.error('Preencha o título e o conteúdo da nota', {
+        autoClose: 5000,
+        position: 'top-center',
+        closeOnClick: true,
+      })
 
       return
     }
@@ -79,14 +68,24 @@ export const NoteFormWidget = ({ title, noteId }: NoteFormWidgetProps) => {
       updatedAt: new Date(),
     })
 
-    handleOpenSuccessSnackbar()
+    toast.success('Nota salva com sucesso', {
+      autoClose: 5000,
+      position: 'top-center',
+      closeOnClick: true,
+    })
 
     router.push('/notas')
   }
 
   const handleDeleteNote = () => {
     deleteNote(noteId as string)
-    handleOpenDeleteSnackbar()
+
+    toast.success('Nota deletada com sucesso', {
+      autoClose: 5000,
+      position: 'top-center',
+      closeOnClick: true,
+    })
+
     router.push('/notas')
   }
 
@@ -102,54 +101,6 @@ export const NoteFormWidget = ({ title, noteId }: NoteFormWidgetProps) => {
       }
       headerAside={<UserAvatar />}
     >
-      <Snackbar
-        open={errorSnackbarOpen}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        autoHideDuration={6000}
-        onClose={handleCloseErrorSnackbar}
-      >
-        <Alert
-          onClose={handleCloseErrorSnackbar}
-          severity="error"
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          Preencha o título e o conteúdo da nota
-        </Alert>
-      </Snackbar>
-
-      <Snackbar
-        open={successSnackbarOpen}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        autoHideDuration={5000}
-        onClose={handleCloseSuccessSnackbar}
-      >
-        <Alert
-          onClose={handleCloseSuccessSnackbar}
-          severity="success"
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          Nota salva com sucesso
-        </Alert>
-      </Snackbar>
-
-      <Snackbar
-        open={deleteSnackbarOpen}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        autoHideDuration={5000}
-        onClose={handleCloseDeleteSnackbar}
-      >
-        <Alert
-          onClose={handleCloseDeleteSnackbar}
-          severity="success"
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          Nota deletada com sucesso
-        </Alert>
-      </Snackbar>
-
       <NoteForm
         title={note.title}
         content={note.content}

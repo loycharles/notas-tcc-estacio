@@ -2,6 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeProvider } from '@mui/material/styles'
+import { ToastContainer } from 'react-toastify'
 
 import { theme } from './theme'
 
@@ -10,6 +11,7 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
+import 'react-toastify/dist/ReactToastify.css'
 import './globals.css'
 
 const queryClient = new QueryClient({
@@ -33,6 +35,8 @@ export default function RootLayout({
         <ThemeProvider theme={theme}>
           <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
         </ThemeProvider>
+
+        <ToastContainer theme="colored" />
       </body>
     </html>
   )

@@ -1,0 +1,35 @@
+.overflow {
+  overflow-y: auto;
+  max-height: 320px;
+  min-height: 0;
+  padding: 6px;
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 6px 12px;
+
+  &.selected {
+    border: 1px solid var(--color-main);
+
+    .hash {
+      color: var(--color-main);
+    }
+  }
+}
+
+.tag {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 700;
+}
