@@ -23,6 +23,7 @@ import styles from './note-form-menu.styles.module.scss'
 interface MainMenuProps {
   saveLabel?: string
   deleteLabel?: string
+  disabled?: boolean
   onSave?: () => void
   onDelete?: () => void
 }
@@ -32,6 +33,7 @@ export const NoteFormMenu = ({
   onDelete = () => null,
   saveLabel = 'Salvar',
   deleteLabel = 'Excluir',
+  disabled = false,
 }: MainMenuProps) => {
   const router = useRouter()
 
@@ -64,12 +66,14 @@ export const NoteFormMenu = ({
           label="Ações"
           icon={<MoreVertIcon />}
           className={styles.item}
+          disabled={disabled}
           onClick={handleActionsClick}
         />
         <BottomNavigationAction
           label={saveLabel}
           icon={<SaveIcon />}
           className={cn(styles.item, styles.action)}
+          disabled={disabled}
           onClick={onSave}
         />
       </BottomNavigation>
