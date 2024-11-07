@@ -3,6 +3,9 @@
 import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 
+import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
+
 import { account } from '@/lib/appwrite'
 import { updateUser } from '@/stores/user.store'
 
@@ -31,7 +34,13 @@ export default function Layout({
   })
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}
+      >
+        <CircularProgress color="main" />
+      </Box>
+    )
   }
 
   return children
