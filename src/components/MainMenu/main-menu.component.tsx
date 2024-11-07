@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 
-import RestoreIcon from '@mui/icons-material/Restore'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import BookmarksIcon from '@mui/icons-material/Bookmarks'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 
@@ -24,7 +24,7 @@ const Actions = {
   Create: 2,
 }
 
-export const MainMenu = ({ action = () => null, createLabel = 'Criar Nota' }: MainMenuProps) => {
+export const MainMenu = ({ action, createLabel = 'Criar Nota' }: MainMenuProps) => {
   const router = useRouter()
   const pathname = usePathname()
 
@@ -41,26 +41,29 @@ export const MainMenu = ({ action = () => null, createLabel = 'Criar Nota' }: Ma
             router.push('/notas/tags')
             break
           case Actions.Create:
-            action()
+            action?.()
             break
         }
       }}
     >
       <BottomNavigationAction
         label="Notas"
-        icon={<RestoreIcon />}
+        icon={<ContentCopyIcon />}
         className={cn(styles.item, { [styles.active]: pathname === '/notas' })}
       />
       <BottomNavigationAction
         label="Tags"
         icon={<BookmarksIcon />}
+        sx={{ marginRight: 'auto' }}
         className={cn(styles.item, { [styles.active]: pathname === '/notas/tags' })}
       />
-      <BottomNavigationAction
-        label={createLabel}
-        icon={<AddBoxIcon />}
-        className={cn(styles.item, styles.action)}
-      />
+      {Boolean(action) && (
+        <BottomNavigationAction
+          label={createLabel}
+          icon={<AddBoxIcon />}
+          className={cn(styles.item, styles.action)}
+        />
+      )}
     </BottomNavigation>
   )
 }

@@ -30,23 +30,12 @@ interface MainMenuProps {
 
 export const NoteFormMenu = ({
   onSave = () => null,
-  onDelete = () => null,
+  onDelete,
   saveLabel = 'Salvar',
   deleteLabel = 'Excluir',
   disabled = false,
 }: MainMenuProps) => {
   const router = useRouter()
-
-  const [actionsAnchorEl, setActionsAnchorEl] = useState<null | HTMLElement>(null)
-  const actionsOpen = Boolean(actionsAnchorEl)
-
-  const handleActionsClick = (event: React.MouseEvent<HTMLElement>) => {
-    setActionsAnchorEl(event.currentTarget)
-  }
-
-  const handleActionsClose = () => {
-    setActionsAnchorEl(null)
-  }
 
   return (
     <>
@@ -62,13 +51,15 @@ export const NoteFormMenu = ({
             router.push('/notas')
           }}
         />
-        <BottomNavigationAction
-          label="Ações"
-          icon={<MoreVertIcon />}
-          className={styles.item}
-          disabled={disabled}
-          onClick={handleActionsClick}
-        />
+        {Boolean(onDelete) && (
+          <BottomNavigationAction
+            label="Excluir"
+            icon={<DeleteIcon />}
+            className={styles.item}
+            disabled={disabled}
+            onClick={onDelete}
+          />
+        )}
         <BottomNavigationAction
           label={saveLabel}
           icon={<SaveIcon />}
@@ -77,27 +68,6 @@ export const NoteFormMenu = ({
           onClick={onSave}
         />
       </BottomNavigation>
-
-      <Menu
-        anchorEl={actionsAnchorEl}
-        open={actionsOpen}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        onClose={handleActionsClose}
-      >
-        <MenuItem onClick={onDelete}>
-          <ListItemIcon>
-            <DeleteIcon fontSize="small" />
-          </ListItemIcon>
-          {deleteLabel}
-        </MenuItem>
-      </Menu>
     </>
   )
 }

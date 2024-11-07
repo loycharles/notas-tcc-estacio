@@ -1,0 +1,19 @@
+.tags {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+
+  .cardTitle {
+    flex: 1;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
