@@ -1,0 +1,23 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+
+  .title {
+    font-weight: 700;
+  }
+}
+
+.content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  font-weight: 700;
+}

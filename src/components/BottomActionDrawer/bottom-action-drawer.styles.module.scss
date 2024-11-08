@@ -1,0 +1,53 @@
+.drawer {
+  :global(.MuiBackdrop-root) {
+    background-color: rgba(202, 7, 189, 0.6);
+  }
+
+  &.error :global(.MuiBackdrop-root) {
+    background-color: rgba(211, 47, 47, 0.6);
+  }
+
+  :global(.MuiDrawer-paper) {
+    max-height: calc(100% - 322px);
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.title {
+  font-weight: 700;
+
+  background: #ca07bd;
+  background: linear-gradient(135deg, #ca07bd, #fa80f8);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  .error & {
+    color: #d32f2f;
+    background: #d32f2f;
+    background: linear-gradient(135deg, #d32f2f, #ff6d6d);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+}
+
+.image {
+  pointer-events: none;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 322px;
+  width: auto;
+}
